@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aakash.parsedthoughts.com/sitemap.xml
+Sitemap: https://aakash-mohandas.github.io/portfolio/sitemap.xml
