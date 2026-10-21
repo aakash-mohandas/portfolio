@@ -1,0 +1,250 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>OpenCode: What It Is, What Makes It Different, and How to Use It From Your Phone — Aakash Mohandas</title>
+<meta name="description" content="A hands-on guide to OpenCode: the open-source AI coding agent that runs in your terminal, desktop, or browser. Features, an honest comparison with Claude Code, and how to drive it from your phone.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2.5rem 3rem}
+.back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
+.back-link:hover{gap:.7rem}
+.meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.meta .date,.meta .read{font-size:.78rem;color:var(--mut);font-weight:500}
+.tag{font:700 .62rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;background:var(--accent-bg);color:var(--accent)}
+.article h1{font:800 clamp(1.7rem,3vw,2.2rem)/1.25 "Inter Tight",sans-serif;letter-spacing:-.02em;margin:0 0 1.25rem}
+.lead{font-size:1.05rem;color:var(--mut);line-height:1.7;border-left:3px solid var(--accent);padding-left:1.1rem;margin-bottom:2.5rem}
+.article h2{font:800 1.3rem/1.3 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:2.25rem 0 .9rem}
+.article h3{font:700 1.02rem/1.4 "Inter Tight",sans-serif;margin:1.6rem 0 .6rem}
+.article p{font-size:.95rem;line-height:1.8;opacity:.85;margin:0 0 1.1rem}
+.article ul,.article ol{padding-left:1.4rem;margin-bottom:1.1rem}
+.article li{font-size:.93rem;opacity:.8;line-height:1.75;margin-bottom:.35rem}
+.article ul ul{margin:.35rem 0 .5rem}
+.article strong{opacity:1}
+.article code{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:var(--p1);border:1px solid var(--line);border-radius:4px;padding:.15rem .4rem;color:var(--accent)}
+.article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
+.callout{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+.callout p{font-size:.88rem;margin:0}
+.tbl-wrap{overflow-x:auto;margin:1.25rem 0 1.5rem}
+.article table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:34rem}
+.article th,.article td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.article th{font:700 .68rem/1.3 "Inter Tight",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);opacity:1}
+.article td:first-child{font-weight:600;white-space:nowrap}
+.article tr:last-child td{border-bottom:0}
+.article td.y{color:var(--ok);font-weight:600}
+.steps{counter-reset:s;list-style:none;padding:0;margin:1.25rem 0}
+.steps li{counter-increment:s;position:relative;padding-left:2.4rem;margin-bottom:1rem;font-size:.93rem;line-height:1.75;opacity:.85}
+.steps li::before{content:counter(s);position:absolute;left:0;top:.05rem;width:1.6rem;height:1.6rem;display:grid;place-items:center;border-radius:50%;background:var(--accent-bg);color:var(--accent);font:700 .75rem "Inter Tight",sans-serif}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+</style>
+</head>
+<body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="../index.html">Blogs</a></li>
+<li><a href="../../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<a class="back-link" href="../index.html">← Back to Blog</a>
+<article class="article">
+  <div class="meta">
+    <span class="tag">AI Tools</span>
+    <span class="date">October 2026</span>
+    <span class="read">10 min read</span>
+  </div>
+  <h1>OpenCode: What It Is, What Makes It Different, and How to Use It From Your Phone</h1>
+  <p class="lead">OpenCode is an open-source AI coding agent that runs in your terminal, as a desktop app, or in a browser tab — and because it's built as a client talking to a server, you can drive a session on your laptop from your phone while walking the dog.</p>
+
+  <h2>What OpenCode actually is</h2>
+  <p>OpenCode is an open-source AI coding agent. You point it at a project, describe what you want, and it reads files, greps through the repo, runs commands, edits code, and iterates until the task is done — the same shape of tool as Claude Code, Codex CLI, or Gemini CLI.</p>
+  <p>What makes it structurally different is where it runs. The <strong>agent logic lives in a background server</strong>, and every interface — the terminal UI, the desktop app, the web app, the mobile app — is just a client connected to that server. That one architectural decision is why the phone workflow later in this post is a first-class feature rather than a hack.</p>
+  <div class="callout">✓ OpenCode is provider-agnostic. It reads model metadata from <code>models.dev</code>, so you can point it at Anthropic, OpenAI, Google, OpenRouter, a local Ollama or LM Studio instance, or any OpenAI-compatible endpoint — and switch per session with <code>/models</code>.</div>
+
+  <h2>Installing it</h2>
+  <p>A few supported paths, depending on how you like to manage tools:</p>
+  <pre><code># curl installer
+curl -fsSL https://opencode.ai/v2/install | bash
+
+# Homebrew
+brew install anomalyco/tap/opencode-v2
+
+# npm
+npm install -g @opencode/cli</code></pre>
+  <p>Then <code>cd</code> into a project and run <code>opencode</code> to open the full-screen TUI. Pass a path to work somewhere else: <code>opencode ~/code/my-project</code>. For scripts and CI, <code>opencode run "Explain this repository"</code> submits a prompt without opening the interactive interface, and <code>opencode mini</code> gives you a lighter-weight interactive mode when the full TUI is overkill.</p>
+
+  <h2>The architecture that makes the rest possible</h2>
+  <p>By default OpenCode discovers or starts <strong>one shared background server per user account</strong>. The TUI, desktop app, and web UI all attach to it. That server owns sessions, configuration, plugins, permissions, and tool execution — which means a session you started in the terminal can be picked up from another client without copying any state around.</p>
+  <p>You can check on it and restart it when things get weird:</p>
+  <pre><code>opencode service status
+opencode service restart
+
+# a private server just for this run, to isolate problems
+opencode --standalone</code></pre>
+  <p>There's also an HTTP API with an OpenAPI spec at <code>/openapi.json</code>, callable from the CLI with <code>opencode api get /api/info</code>. If you want to build tooling on top of OpenCode — a Slack bot, a dashboard, a CI integration — that's your entry point, and there's a generated TypeScript client for it.</p>
+
+  <h2>Features that actually matter day to day</h2>
+
+  <h3>Model freedom, including local models</h3>
+  <p>This is the headline. Because the provider layer is configurable, you can run an expensive frontier model for architecture work and a cheap fast one for boilerplate, in the same tool, switching in-session. Local discovery means Ollama, LM Studio, and vLLM instances show up automatically — useful when code can't leave the machine.</p>
+  <pre><code># pick a model for one run, without changing your default
+opencode run --model anthropic/claude-sonnet-4-5 "Refactor parseToken"
+
+# reasoning effort variants, where the model exposes them
+opencode run --model openai/gpt-5.2#high "Review this migration plan"</code></pre>
+  <p>Defaults live in <code>opencode.jsonc</code>, so a repo can pin the model that suits it.</p>
+
+  <h3>Agents: built-in roles plus your own</h3>
+  <p>OpenCode ships four visible agents: <strong>Build</strong> (the default coding agent), <strong>Plan</strong> (explores and plans without editing project files), <strong>General</strong> (a broad-access subagent for research and multi-step work), and <strong>Explore</strong> (read-only search across code and web). The Plan/Build split is genuinely useful — you get a reviewed approach before anything is rewritten.</p>
+  <p>Custom agents are just Markdown files. This one adds a read-only reviewer that the main agent can launch:</p>
+  <pre><code>---
+description: Reviews changes for correctness and regressions
+mode: subagent
+model: anthropic/claude-sonnet-4-5#high
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
+---
+
+Review the current changes. List findings in severity order
+with file and line references.</code></pre>
+  <p>Drop it in <code>.opencode/agents/reviewer.md</code> for the project, or <code>~/.config/opencode/agents/</code> globally. Subagents run in separate child sessions with fresh context, in the foreground or background — so "have a second agent audit what the first one just wrote" is a supported pattern, not a prompt trick.</p>
+
+  <h3>Permissions you can actually reason about</h3>
+  <p>Permissions are ordered rules with <code>allow</code>, <code>ask</code>, or <code>deny</code>, matched against an action and a resource. The last matching rule wins, so you put broad rules first and exceptions after:</p>
+  <pre><code>"permissions": [
+  { "action": "shell", "resource": "*", "effect": "ask" },
+  { "action": "shell", "resource": "git status", "effect": "allow" },
+  { "action": "read",  "resource": ".env*",      "effect": "deny" }
+]</code></pre>
+  <p>You can scope this per agent, which is how you build a reviewer that physically cannot edit files rather than one you've merely asked not to.</p>
+
+  <h3>Skills, commands, MCP, and plugins</h3>
+  <ul>
+    <li><strong>Skills</strong> — reusable instruction bundles loaded on demand, so a long runbook doesn't sit in the system prompt on every turn.</li>
+    <li><strong>Commands</strong> — named prompts you invoke like CLI verbs, shareable through the repo.</li>
+    <li><strong>MCP servers</strong> — add external tool servers with <code>opencode mcp add</code>, remote servers use OAuth by default, so no API keys copied into config.</li>
+    <li><strong>Plugins</strong> — JavaScript/TypeScript hooks into tool calls, transforms, and the TUI itself. This is the layer Claude Code's hook system doesn't quite reach, because you can reshape the interface, not just intercept events.</li>
+  </ul>
+
+  <h3>Terminal polish that saves real time</h3>
+  <p>LSP integration gives the agent actual type information and diagnostics instead of guessing from text. Formatters run automatically after edits. Snapshots let you rewind a session. Compaction keeps long sessions from falling off a cliff when context fills up. And the config is a real JSONC file with a published schema, so your editor validates it — themes and keybinds live separately in <code>cli.json</code>.</p>
+
+  <h2>OpenCode vs Claude Code</h2>
+  <p>I use both. They overlap heavily in capability now, so the differences come down to philosophy rather than features. Both read your repo, edit files, run commands, support MCP, support subagents, and support project-level instruction files.</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>&nbsp;</th><th>OpenCode</th><th>Claude Code</th></tr></thead>
+    <tbody>
+      <tr><td>License</td><td class="y">Open source</td><td>Proprietary</td></tr>
+      <tr><td>Models</td><td class="y">Any provider, plus local Ollama / LM Studio / vLLM</td><td>Claude models (also via Bedrock / Vertex)</td></tr>
+      <tr><td>Cost</td><td>Free tool; you bring API keys. Optional $10/mo Go plan</td><td>Claude Pro / Max subscription or API billing</td></tr>
+      <tr><td>Interfaces</td><td class="y">TUI, mini mode, desktop app, web app, mobile app, <code>run</code> for CI</td><td>CLI, IDE extensions, web, iOS</td></tr>
+      <tr><td>Remote / phone</td><td class="y">Built in: pair a client to your own server, local or over the internet</td><td>Via Anthropic's hosted web and mobile clients</td></tr>
+      <tr><td>Config</td><td><code>opencode.jsonc</code>, Markdown agents, JSONC schema</td><td><code>settings.json</code>, <code>CLAUDE.md</code></td></tr>
+      <tr><td>Extensibility</td><td class="y">JS/TS plugins including TUI, plus hooks, agents, skills, commands</td><td>Hooks, subagents, skills, slash commands</td></tr>
+      <tr><td>Self-hosting</td><td class="y">Yes — run the server on your own box</td><td>Not the same model; the harness is Anthropic's</td></tr>
+      <tr><td>Best for</td><td>Model flexibility, self-hosted workflows, tinkering</td><td>Tightest Anthropic integration, zero setup</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Where Claude Code still wins:</strong> onboarding. Install it, log in, and you're working in two minutes with a model that's been tuned alongside the harness. Nothing to configure, no provider accounts to wire up, and the agent behaviour is extremely well polished because Anthropic controls both halves of the stack.</p>
+  <p><strong>Where OpenCode wins:</strong> when you don't want a single vendor between you and your code. Swapping models per task, running a local model on a confidential repo, writing a plugin that changes how the interface behaves, or hosting the agent on your own machine — those are all first-class here and not really possible in Claude Code.</p>
+  <div class="callout">ℹ️ One nice wrinkle: OpenCode's Console can also serve models <em>to</em> Claude Code through the Anthropic-compatible endpoint, so the two aren't strictly either/or. You can keep the Claude Code harness and still route it at different models.</div>
+
+  <h2>Using OpenCode from your phone</h2>
+  <p>This is the part people don't expect. Because the agent lives in a server and the UI is just a client, your phone can be a genuine remote control for a session running on your laptop or a home server. No SSH app, no tmux, no squinting at a terminal.</p>
+
+  <h3>Option 1: pair locally (same network / same machine)</h3>
+  <p>Run <code>opencode pair</code> on the machine doing the work:</p>
+  <pre><code>$ opencode pair
+
+  Open a link to connect. Links work once and expire in 5 minutes.
+
+  http://127.0.0.1:49374/auth/connect/...</code></pre>
+  <p>You get a one-time link and a QR code. Scan it with the OpenCode app, or paste the link into the app's server address field. Opening it in a browser signs that browser in with a session cookie. Sessions last 30 days, and changing the server password signs every session out.</p>
+  <p>The default port is <strong>49374</strong> on macOS, Linux, and WSL, and <strong>45278</strong> on Windows. Check it any time with <code>opencode service status</code>.</p>
+
+  <h3>Option 2: pair over the internet</h3>
+  <p>If your laptop is at home and you're not, <code>opencode pair --remote</code> routes through an OpenTunnel remote address:</p>
+  <pre><code>$ opencode pair --remote</code></pre>
+  <p>First run asks for confirmation, and it's worth reading rather than skipping:</p>
+  <pre><code>▲  This will expose your OpenCode server to the internet.
+│  Traffic is end-to-end encrypted, and access requires your
+│  server password.
+│
+◆  Expose your server to the internet?
+│  ● Yes / ○ No</code></pre>
+  <p>Traffic is end-to-end encrypted and gated on your server password. In non-interactive contexts you need <code>--yes</code> to accept. Once accepted, later runs skip the prompt — including after you turn remote access back off with <code>opencode service set remote false</code>, so don't assume that flag re-arms the confirmation.</p>
+
+  <h3>Option 3: SSH port forward (my default)</h3>
+  <p>If you already have SSH into the box, this is the least surprising option. The server listens only on localhost by default, so forward the port and open the printed link on your machine:</p>
+  <pre><code>ssh -L 49374:127.0.0.1:49374 my-server</code></pre>
+  <p>Then run <code>opencode pair</code> on the remote host and open the link locally. Nothing is exposed to the public internet, and you're reusing auth you already trust.</p>
+
+  <h3>Option 4: an always-on server</h3>
+  <p>For a genuinely remote setup — a VPS, a home lab box, a Mac mini in a cupboard — run the server in the foreground so a supervisor can manage it:</p>
+  <pre><code>opencode serve --hostname 0.0.0.0 --port 4096
+
+server listening on http://0.0.0.0:4096
+server password &lt;password&gt;</code></pre>
+  <p>Connect any client to it explicitly:</p>
+  <pre><code>opencode --server http://127.0.0.1:4096</code></pre>
+  <p>Or configure the shared background service instead of a one-off process:</p>
+  <pre><code>opencode service set hostname 0.0.0.0
+opencode service set port 49374
+opencode service set password "a-long-secret"
+opencode service set cors https://app.example.com
+opencode service start</code></pre>
+  <p>Changing a setting stops the background server, so the <code>start</code> at the end isn't optional.</p>
+
+  <h3>Security checklist</h3>
+  <ul>
+    <li><strong>Don't skip the password.</strong> The default is generated for you; replace it with a long one if you're exposing anything.</li>
+    <li><strong>Prefer a private network over the public internet.</strong> Tailscale or WireGuard plus the SSH-forward approach beats a publicly reachable port.</li>
+    <li><strong>Remember what the agent can do.</strong> An exposed OpenCode server is an exposed shell on your machine. Tighten <code>permissions</code> for the agents you use remotely — deny <code>edit</code> or <code>shell</code> on anything you wouldn't want run from a phone on a train.</li>
+    <li><strong>Treat pair links as credentials.</strong> They're single-use and expire in five minutes, but anyone who gets one in time is you.</li>
+  </ul>
+
+  <h2>What I'd actually use it for</h2>
+  <p>A realistic phone workflow isn't "write a feature on a train." It's the small stuff that otherwise blocks your day: kick off a dependency bump and let it run, review an agent's plan before you sit down, ask why CI is red and get a diagnosis queued up, or approve a permission prompt from the kitchen so a long refactor isn't sitting there waiting on you.</p>
+  <p>The bigger point is that the model of "agent runs on a machine, client is wherever I am" is just better than "agent and UI are the same process." Once you've used it, going back to a tool that only exists in one terminal window feels oddly constrained.</p>
+
+  <h2>Final thoughts</h2>
+  <p>OpenCode is the most interesting thing to happen to coding agents in a while, and not because of any single feature — it's because the architecture is open in all three directions that matter: open source, open to any model, and open to any client, including the phone in your pocket.</p>
+  <p>If you're already comfortable in Claude Code, I wouldn't switch for the sake of it. But if you've ever wanted to run a local model on a sensitive repo, swap models mid-task, or check on a long-running agent without being chained to your desk, it's worth a serious look. Start with the install and a single <code>opencode pair</code> — that's the moment it clicks.</p>
+  <p>If you're newer to this class of tool, my earlier post on <a href="claude-features-for-engineers.html">Claude features every engineer should be using</a> covers the workflow patterns that transfer to any agent, OpenCode included.</p>
+</article>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+</script>
+</body></html>

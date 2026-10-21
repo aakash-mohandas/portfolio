@@ -1,0 +1,161 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>HashiCorp Vault Best Practices — Aakash Mohandas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--sec:#C05050;--sec-bg:rgba(220,80,80,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--sec:#FF8080;--sec-bg:rgba(255,100,100,.12)}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--sec:#FF8080;--sec-bg:rgba(255,100,100,.12)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2.5rem 3rem}
+.back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
+.back-link:hover{gap:.7rem}
+.article{max-width:42rem}
+.meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.tag{font:700 .62rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;background:var(--sec-bg);color:var(--sec)}
+.date,.read{font-size:.78rem;color:var(--mut);font-weight:600}
+.article h1{font:800 clamp(1.7rem,3.4vw,2.4rem)/1.25 "Inter Tight",sans-serif;letter-spacing:-.02em;margin:0 0 1rem}
+.lead{font-size:1.05rem;color:var(--mut);line-height:1.7;border-left:3px solid var(--sec);padding-left:1.1rem;margin-bottom:2.5rem}
+.article h2{font:800 1.3rem/1.3 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:2.25rem 0 .9rem}
+.article h3{font:700 1.05rem/1.3 "Inter Tight",sans-serif;margin:1.75rem 0 .6rem}
+.article p{font-size:.95rem;color:var(--fg);opacity:.85;line-height:1.8;margin-bottom:1.1rem}
+.article ul,.article ol{padding-left:1.4rem;margin-bottom:1.1rem}
+.article li{font-size:.93rem;opacity:.8;line-height:1.75;margin-bottom:.35rem}
+.article strong{font-weight:700;opacity:1}
+.article code{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:var(--p1);border:1px solid var(--line);border-radius:4px;padding:.15rem .4rem;color:var(--accent)}
+.article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
+.callout{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+.warn{background:var(--sec-bg);border-left:3px solid var(--sec);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+</style>
+</head>
+<body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="../index.html">Blogs</a></li>
+<li><a href="../../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<a class="back-link" href="../index.html">← Back to Blog</a>
+<article class="article">
+  <div class="meta">
+    <span class="tag">Security</span>
+    <span class="date">May 2026</span>
+    <span class="read">7 min read</span>
+  </div>
+  <h1>HashiCorp Vault Best Practices: Secrets Management Done Right</h1>
+  <p class="lead">Dynamic secrets, auth methods, policy design, and the operational mistakes teams make when scaling Vault in production Kubernetes environments.</p>
+
+  <h2>Why secrets management is harder than it looks</h2>
+  <p>Most teams start with static secrets in environment variables or config files. It works — until it doesn't. A leaked .env file, a rotated credential that breaks three services, a shared admin password that half the team knows. HashiCorp Vault solves these problems systematically, but only if you use it correctly.</p>
+  <p>Having deployed and operated Vault across multiple Kubernetes environments, here are the patterns that matter most.</p>
+
+  <h2>1. Use Dynamic Secrets Wherever Possible</h2>
+  <p>Static secrets are Vault's least powerful feature. Dynamic secrets are where it shines. Instead of storing a database password, Vault generates a unique, time-limited credential on demand — and automatically revokes it when the lease expires.</p>
+  <pre><code># Enable the database secrets engine
+vault secrets enable database
+
+# Configure a PostgreSQL connection
+vault write database/config/my-db \
+  plugin_name=postgresql-database-plugin \
+  connection_url="postgresql://{{username}}:{{password}}@db:5432/mydb" \
+  allowed_roles="app-role"
+
+# Create a role with a short TTL
+vault write database/roles/app-role \
+  db_name=my-db \
+  creation_statements="CREATE ROLE ..." \
+  default_ttl="1h" \
+  max_ttl="24h"</code></pre>
+  <div class="callout">✓ Dynamic secrets mean a compromised credential is automatically invalid after its TTL. Blast radius of a breach shrinks dramatically.</div>
+
+  <h2>2. Auth Methods: Choose the Right One</h2>
+  <p>In Kubernetes environments, the Kubernetes auth method is the right choice for workload identity. It lets pods authenticate to Vault using their ServiceAccount JWT token — no static credentials required.</p>
+  <pre><code>vault auth enable kubernetes
+
+vault write auth/kubernetes/config \
+  kubernetes_host="https://kubernetes.default.svc" \
+  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+vault write auth/kubernetes/role/my-app \
+  bound_service_account_names=my-app-sa \
+  bound_service_account_namespaces=production \
+  policies=my-app-policy \
+  ttl=1h</code></pre>
+  <p>For human operators, prefer OIDC auth tied to your identity provider (Okta, Azure AD, Google Workspace). Avoid userpass auth in production — it's a static credential anti-pattern.</p>
+
+  <h2>3. Policy Design: Least Privilege</h2>
+  <p>Vault policies should be narrow and explicit. The biggest mistake I see is teams writing overly broad policies because it's easier than being precise.</p>
+  <pre><code># Bad: too broad
+path "secret/*" {
+  capabilities = ["read", "list", "create", "update", "delete"]
+}
+
+# Good: scoped to what the app actually needs
+path "secret/data/myapp/{{identity.entity.name}}/*" {
+  capabilities = ["read"]
+}
+
+path "database/creds/myapp-role" {
+  capabilities = ["read"]
+}</code></pre>
+  <div class="callout">✓ Use templated policies with identity.entity.name or identity.groups.names to avoid creating one policy per service. It scales much better.</div>
+
+  <h2>4. Vault Agent for Kubernetes Workloads</h2>
+  <p>Vault Agent Injector is the cleanest way to deliver secrets to Kubernetes pods. It injects a sidecar that authenticates to Vault, fetches secrets, and writes them as files or environment variables — without your application code ever touching Vault directly.</p>
+  <pre><code>annotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/role: "my-app"
+  vault.hashicorp.com/agent-inject-secret-config: "secret/data/myapp/config"
+  vault.hashicorp.com/agent-inject-template-config: |
+    {{- with secret "secret/data/myapp/config" -}}
+    DB_PASSWORD={{ .Data.data.db_password }}
+    API_KEY={{ .Data.data.api_key }}
+    {{- end }}</code></pre>
+
+  <h2>5. Operational Best Practices</h2>
+  <h3>Auto-unseal</h3>
+  <p>Manual unseal using operator keys is a single-point-of-failure in production. Use cloud auto-unseal — AWS KMS, Azure Key Vault, or GCP Cloud KMS — so Vault automatically unseals after a restart without human intervention.</p>
+  <h3>Audit logging</h3>
+  <p>Enable audit devices from day one. Every request to Vault is logged, including the token used, the path accessed, and the response code. This is invaluable for incident response and compliance.</p>
+  <pre><code>vault audit enable file file_path=/var/log/vault/audit.log</code></pre>
+  <h3>Lease management</h3>
+  <p>Monitor and manage leases actively. Leaked leases consume Vault resources and can hit limits. Set aggressive TTLs and implement lease renewal in your applications rather than relying on max TTL.</p>
+
+  <h2>Common Mistakes to Avoid</h2>
+  <div class="warn">🚫 <strong>Root token in CI/CD.</strong> Create purpose-specific tokens with narrow policies. The root token should only be used for initial setup and then revoked.</div>
+  <div class="warn">🚫 <strong>Not testing Vault HA failover.</strong> Deploy Vault in HA mode (Raft integrated storage or Consul backend) and regularly test failover. Discovering HA doesn't work during an incident is a bad time.</div>
+  <div class="warn">🚫 <strong>Ignoring secret versioning.</strong> Use KV v2 (not v1) for static secrets. v2 provides versioning, soft deletion, and a check-and-set operation that prevents accidental overwrites.</div>
+
+  <h2>Final thoughts</h2>
+  <p>Vault is one of those tools where the distance between "using it" and "using it well" is significant. The patterns above — dynamic secrets, appropriate auth methods, least-privilege policies, and Vault Agent for Kubernetes — cover the majority of what a production Vault deployment needs.</p>
+  <p>If you're starting fresh, begin with the Kubernetes auth method and KV v2. Add dynamic secrets as you identify static credentials in your stack. Build audit logging from day one. The incremental approach works well here.</p>
+</article>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+</script>
+</body></html>
+

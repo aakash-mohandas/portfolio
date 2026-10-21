@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Aakash Mohandas | Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:1rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1.25rem 1rem;align-content:start}
+.card{display:block;text-decoration:none}
+.fig{min-height:16rem;border-radius:14px;padding:1.25rem;display:grid;place-items:center;align-content:center;gap:.6rem}
+.t1{background:linear-gradient(135deg,var(--p1),var(--p2))}.t2{background:linear-gradient(135deg,var(--p2),var(--p3))}.t3{background:linear-gradient(135deg,var(--p3),var(--p4))}.t4{background:linear-gradient(135deg,var(--p4),var(--p1))}
+pre{margin:0;width:100%;background:#14171C;color:#E6EAF0;border-radius:10px;padding:1rem;font:.76rem/1.65 ui-monospace,Menlo,Consolas,monospace;overflow:hidden}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.4rem .75rem;font-size:.82rem}
+.cap{display:flex;justify-content:space-between;gap:1rem;padding:.7rem .25rem .25rem}
+.cap b{font-weight:500}.cap span{color:var(--mut);white-space:nowrap}
+.card:hover b{text-decoration:underline}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:.75rem}}
+</style></head><body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="blogs/index.html">Blogs</a></li>
+<li><a href="#" aria-current="page">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="#">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside><main class="main"><h2 class="sr">Selected work</h2><a class="card" href="#"><div class="fig t1"><div class="row"><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">GCP</span><span class="chip">OCI</span></div><div class="row"><span class="chip">Terraform modules</span></div></div><div class="cap"><b>Multi-cloud foundations</b><span>Platform</span></div></a><a class="card" href="#"><div class="fig t2"><pre>path "secret/data/app/*" {
+  capabilities = ["read"]
+}</pre></div><div class="cap"><b>Secrets platform on Vault</b><span>Security</span></div></a><a class="card" href="#"><div class="fig t3"><div class="row"><span class="chip">Commit</span><span class="chip">&rarr;</span><span class="chip">ArgoCD</span><span class="chip">&rarr;</span><span class="chip">Cluster</span></div><div class="row"><span class="chip">FedRAMP</span><span class="chip">GDPR</span></div></div><div class="cap"><b>Compliant delivery pipelines</b><span>Delivery</span></div></a><a class="card" href="#"><div class="fig t4"><div class="row"><span class="chip">Terraform</span><span class="chip">Pulumi</span><span class="chip">Kubernetes</span><span class="chip">ArgoCD</span><span class="chip">Flux</span><span class="chip">Temporal</span><span class="chip">Go</span><span class="chip">Vault</span></div></div><div class="cap"><b>Skills</b><span>Stack</span></div></a></main></div>
+<script>t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'}</script></body></html>

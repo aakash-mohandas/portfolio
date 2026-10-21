@@ -1,0 +1,118 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Golang for Infrastructure Engineers — Aakash Mohandas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--accent2:#2F8F6B;--accent2-bg:#E3F3EC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2.5rem 3rem}
+.back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
+.back-link:hover{gap:.7rem}
+.article{max-width:42rem}
+.meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.tag{font:700 .62rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;background:var(--accent2-bg);color:var(--accent2)}
+.date,.read{font-size:.78rem;color:var(--mut);font-weight:600}
+.article h1{font:800 clamp(1.7rem,3.4vw,2.4rem)/1.25 "Inter Tight",sans-serif;letter-spacing:-.02em;margin:0 0 1rem}
+.lead{font-size:1.05rem;color:var(--mut);line-height:1.7;border-left:3px solid var(--accent2);padding-left:1.1rem;margin-bottom:2.5rem}
+.article h2{font:800 1.3rem/1.3 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:2.25rem 0 .9rem}
+.article h3{font:700 1.05rem/1.3 "Inter Tight",sans-serif;margin:1.75rem 0 .6rem}
+.article p{font-size:.95rem;color:var(--fg);opacity:.85;line-height:1.8;margin-bottom:1.1rem}
+.article ul,.article ol{padding-left:1.4rem;margin-bottom:1.1rem}
+.article li{font-size:.93rem;opacity:.8;line-height:1.75;margin-bottom:.35rem}
+.article strong{font-weight:700;opacity:1}
+.article code{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:var(--p1);border:1px solid var(--line);border-radius:4px;padding:.15rem .4rem;color:var(--accent)}
+.article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
+.callout{background:var(--accent2-bg);border-left:3px solid var(--accent2);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+</style>
+</head>
+<body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="../index.html">Blogs</a></li>
+<li><a href="../../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<a class="back-link" href="../index.html">← Back to Blog</a>
+<article class="article">
+  <div class="meta">
+    <span class="tag">Golang</span>
+    <span class="date">June 2026</span>
+    <span class="read">7 min read</span>
+  </div>
+  <h1>Golang for Infrastructure Engineers: Why It Became the Default</h1>
+  <p class="lead">Terraform, Kubernetes, Docker, Vault, Terragrunt, Prometheus — the entire modern infrastructure stack is written in Go. Here's why, and what it means for engineers writing tooling around it.</p>
+
+  <h2>Why infrastructure tooling converged on Go</h2>
+  <p>It's not a coincidence that nearly every major piece of cloud-native infrastructure tooling is written in Go. Static binaries with no runtime dependency, fast compilation, built-in concurrency primitives, and a standard library with first-class HTTP and JSON support made it the obvious choice for CLI tools and daemons that need to run anywhere without an installed interpreter or VM.</p>
+  <div class="callout">✓ A Go binary is a single statically-linked executable — no "install the right Python version and its venv" step, no JVM startup overhead. That alone explains a lot of its adoption in CLI and agent tooling.</div>
+
+  <h2>Goroutines and channels: concurrency that fits infra workloads</h2>
+  <p>Infrastructure tools spend a lot of time waiting on I/O — API calls to cloud providers, watching Kubernetes resources, polling health checks. Go's goroutines make concurrent I/O cheap and readable, without the callback or async/await ceremony of other languages.</p>
+  <pre><code>func pollHealth(targets []string) {
+  results := make(chan string, len(targets))
+  for _, t := range targets {
+    go func(target string) {
+      results <- checkHealth(target)
+    }(t)
+  }
+  for range targets {
+    fmt.Println(<-results)
+  }
+}</code></pre>
+  <p>Thousands of goroutines can run concurrently with minimal memory overhead (a few KB each vs. a full OS thread), which is exactly the shape of workload a Kubernetes controller or a health-check fanout needs.</p>
+
+  <h2>Interfaces and the provider/plugin pattern</h2>
+  <p>Go's implicit interfaces (no <code>implements</code> keyword — a type satisfies an interface just by having the right methods) are a big part of why Terraform providers, Kubernetes custom resources, and similar plugin ecosystems feel natural to build in Go. You define a small interface, and any type that implements its methods can be swapped in.</p>
+  <pre><code>type HealthChecker interface {
+  Check(ctx context.Context) error
+}
+
+// Any type with a matching Check method satisfies this — no explicit declaration needed
+type HTTPChecker struct{ URL string }
+func (h HTTPChecker) Check(ctx context.Context) error { /* ... */ return nil }</code></pre>
+
+  <h2>Error handling: explicit, if verbose</h2>
+  <p>Go's <code>if err != nil</code> pattern gets criticised for verbosity, but for infrastructure code — where a silently swallowed error can mean a half-applied Terraform plan or a missed Kubernetes reconciliation — explicit, impossible-to-ignore error handling at every call site is a feature, not a bug. There's no exception that can silently propagate past a layer that should have handled it.</p>
+
+  <h2>context.Context: cancellation and timeouts done right</h2>
+  <p><code>context.Context</code> threads cancellation and deadlines through call chains uniformly — critical for infra tools that need to respect "the user hit Ctrl-C" or "this operation has a 30 second timeout" consistently across every HTTP call, gRPC call, and goroutine spawned along the way.</p>
+  <pre><code>ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+defer cancel()
+resp, err := client.Do(req.WithContext(ctx))</code></pre>
+
+  <h2>Writing your own CLI tooling</h2>
+  <p>If you're building internal platform tooling — a wrapper around <code>kubectl</code>, a custom Terraform provider, a CI helper — Go's standard tooling (<code>cobra</code> for CLIs, <code>testify</code> for tests, built-in <code>go test</code> with race detection) gets you to a production-quality internal tool fast, and the resulting binary is trivial to distribute: build once per OS/arch, ship the binary, no dependency installation required for the end user.</p>
+
+  <h2>Final thoughts</h2>
+  <p>You don't need to become a Go expert to operate Terraform or Kubernetes, but understanding why the ecosystem chose Go — static binaries, cheap concurrency, explicit errors, structural interfaces — makes reading provider source code, writing custom controllers, or debugging a weird goroutine leak in production dramatically less mysterious.</p>
+</article>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+</script>
+</body></html>

@@ -1,0 +1,197 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Blog — Aakash Mohandas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2rem;display:flex;flex-direction:column;gap:1.5rem}
+.main-head h2{font:800 clamp(1.5rem,2.4vw,2rem)/1.2 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:0 0 .4rem}
+.main-head p{color:var(--mut);margin:0}
+.search-wrap{position:relative;max-width:26rem}
+.search-input{width:100%;padding:.85rem 1.1rem .85rem 2.6rem;border-radius:99px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:inherit;font-size:.9rem;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--fg)}
+.search-input::placeholder{color:var(--mut)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--mut);font-size:.9rem;pointer-events:none}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1.25rem 1rem}
+.card{display:flex;flex-direction:column;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.fig{min-height:8rem;padding:1.25rem;display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem}
+.t1{background:linear-gradient(135deg,var(--p1),var(--p2))}.t2{background:linear-gradient(135deg,var(--p2),var(--p3))}.t3{background:linear-gradient(135deg,var(--p3),var(--p4))}.t4{background:linear-gradient(135deg,var(--p4),var(--p1))}
+.tag{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:.3rem .75rem;font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--fg)}
+.read-time{font-size:.72rem;color:var(--mut);font-weight:500;white-space:nowrap}
+.card-body{padding:1.1rem 1.25rem 1.25rem;display:flex;flex-direction:column;flex:1}
+.card-title{font:700 1rem/1.4 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:0 0 .6rem;color:var(--fg)}
+.card-excerpt{font-size:.85rem;color:var(--mut);line-height:1.65;margin:0 0 1rem;flex:1}
+.card-foot{display:flex;justify-content:space-between;align-items:center;padding-top:.85rem;border-top:1px solid var(--line);font-size:.72rem;color:var(--mut);font-weight:600}
+.read-link{color:var(--fg);font-weight:700}
+.card:hover .read-link::after{content:' →'}
+.no-results{display:none;color:var(--mut);text-align:center;padding:3rem 1rem;font-family:"Inter Tight",sans-serif}
+.no-results.visible{display:block}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.25rem}}
+</style></head><body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="index.html" aria-current="page">Blogs</a></li>
+<li><a href="../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<div class="main-head">
+<h2>From the blog</h2>
+<p>Tech deep-dives, crypto strategy, and everything in between.</p>
+</div>
+<div class="search-wrap">
+<span class="search-icon">🔍</span>
+<input type="search" id="blog-search" class="search-input" placeholder="Search blogs…" aria-label="Search blogs">
+</div>
+<div class="posts" id="blog-grid">
+<a class="card" href="posts/opencode-guide.html" data-title="OpenCode: What It Is, What Makes It Different, and How to Use It From Your Phone" data-tag="AI Tools" data-excerpt="An open-source coding agent you can drive from your phone — features, an honest comparison with Claude Code, and the pairing workflow that makes remote sessions real.">
+<div class="fig t4"><span class="tag">AI Tools</span><span class="read-time">10 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">OpenCode: What It Is, What Makes It Different, and How to Use It From Your Phone</h3>
+<p class="card-excerpt">An open-source coding agent you can drive from your phone — features, an honest comparison with Claude Code, and the pairing workflow that makes remote sessions real.</p>
+<div class="card-foot"><span>October 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/terraform-best-practices.html" data-title="Terraform Best Practices: Lessons from 13 Years of Infrastructure Automation" data-tag="DevOps" data-excerpt="State management, module design, workspace strategy, and the anti-patterns I see repeated in teams across AWS, Azure, and GCP.">
+<div class="fig t1"><span class="tag">DevOps</span><span class="read-time">8 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Terraform Best Practices: Lessons from 13 Years of Infrastructure Automation</h3>
+<p class="card-excerpt">State management, module design, workspace strategy, and the anti-patterns I see repeated in teams across AWS, Azure, and GCP.</p>
+<div class="card-foot"><span>May 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/hashicorp-vault-best-practices.html" data-title="HashiCorp Vault Best Practices: Secrets Management Done Right" data-tag="Security" data-excerpt="Dynamic secrets, auth methods, policy design, and the operational mistakes teams make when scaling Vault in production Kubernetes environments.">
+<div class="fig t4"><span class="tag">Security</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">HashiCorp Vault Best Practices: Secrets Management Done Right</h3>
+<p class="card-excerpt">Dynamic secrets, auth methods, policy design, and the operational mistakes teams make when scaling Vault in production Kubernetes environments.</p>
+<div class="card-foot"><span>May 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/camunda-workflow-engine-features.html" data-title="Camunda and Its Features: Orchestrating Workflows at Scale" data-tag="DevOps" data-excerpt="A look at what Camunda actually is, why process orchestration matters, and the features that make it stand out from a plain job queue or cron job.">
+<div class="fig t1"><span class="tag">DevOps</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Camunda and Its Features: Orchestrating Workflows at Scale</h3>
+<p class="card-excerpt">A look at what Camunda actually is, why process orchestration matters, and the features that make it stand out from a plain job queue or cron job.</p>
+<div class="card-foot"><span>May 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/terragrunt-dry-terraform-at-scale.html" data-title="Terragrunt: Keeping Terraform DRY at Scale" data-tag="DevOps" data-excerpt="Once you have more than a handful of Terraform root modules across environments, copy-pasted backend blocks become a maintenance tax. Terragrunt removes it.">
+<div class="fig t2"><span class="tag">DevOps</span><span class="read-time">6 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Terragrunt: Keeping Terraform DRY at Scale</h3>
+<p class="card-excerpt">Once you have more than a handful of Terraform root modules across environments, copy-pasted backend blocks become a maintenance tax. Terragrunt removes it.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/temporal-durable-execution.html" data-title="Temporal: Durable Execution for Distributed Systems" data-tag="DevOps" data-excerpt="Why retry logic, timers, and state machines scattered across your services are a code smell — and how Temporal lets you write workflows as plain, durable functions.">
+<div class="fig t3"><span class="tag">DevOps</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Temporal: Durable Execution for Distributed Systems</h3>
+<p class="card-excerpt">Why retry logic, timers, and state machines scattered across your services are a code smell — and how Temporal lets you write workflows as plain, durable functions.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/cdn-fundamentals-for-engineers.html" data-title="CDNs: What Every Engineer Should Actually Know" data-tag="Networking" data-excerpt="A CDN is more than a cache in front of your site. Cache keys, invalidation, edge compute, and origin shielding are the parts that actually matter in production.">
+<div class="fig t4"><span class="tag">Networking</span><span class="read-time">6 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">CDNs: What Every Engineer Should Actually Know</h3>
+<p class="card-excerpt">A CDN is more than a cache in front of your site. Cache keys, invalidation, edge compute, and origin shielding are the parts that actually matter in production.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/golang-for-infra-engineers.html" data-title="Golang for Infrastructure Engineers: Why It Became the Default" data-tag="Golang" data-excerpt="Terraform, Kubernetes, Docker, Vault, Terragrunt, Prometheus — the entire modern infra stack is written in Go. Here's why, and what it means for engineers.">
+<div class="fig t1"><span class="tag">Golang</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Golang for Infrastructure Engineers: Why It Became the Default</h3>
+<p class="card-excerpt">Terraform, Kubernetes, Docker, Vault, Terragrunt, Prometheus — the entire modern infra stack is written in Go. Here's why, and what it means for engineers.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/claude-features-for-engineers.html" data-title="Claude Features Every Engineer Should Be Using" data-tag="AI Tools" data-excerpt="Beyond ask it to write a function — large context windows, project knowledge, artifacts, and tool use are what actually change how I work day to day.">
+<div class="fig t2"><span class="tag">AI Tools</span><span class="read-time">6 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Claude Features Every Engineer Should Be Using</h3>
+<p class="card-excerpt">Beyond "ask it to write a function" — large context windows, project knowledge, artifacts, and tool use are what actually change how I work day to day.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/troubleshooting-production-with-claude.html" data-title="Troubleshooting Production Incidents with Claude" data-tag="AI Tools" data-excerpt="A practical workflow for using an AI assistant during an actual incident — what to paste, what to ask, and where human judgement still has to lead.">
+<div class="fig t3"><span class="tag">AI Tools</span><span class="read-time">6 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Troubleshooting Production Incidents with Claude</h3>
+<p class="card-excerpt">A practical workflow for using an AI assistant during an actual incident — what to paste, what to ask, and where human judgement still has to lead.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/vault-pki-secrets-engine.html" data-title="HashiCorp Vault PKI: Automating Certificate Lifecycle" data-tag="Security" data-excerpt="Manually renewing internal TLS certificates doesn't scale past a handful of services. Vault's PKI engine turns issuance into an API call with a built-in expiry.">
+<div class="fig t4"><span class="tag">Security</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">HashiCorp Vault PKI: Automating Certificate Lifecycle</h3>
+<p class="card-excerpt">Manually renewing internal TLS certificates doesn't scale past a handful of services. Vault's PKI engine turns issuance into an API call with a built-in expiry.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/harness-ci-cd-pipelines.html" data-title="Harness CI/CD: Pipelines as Code Without the YAML Sprawl" data-tag="DevOps" data-excerpt="What makes Harness different from a plain CI runner — native deployment strategies, built-in verification, and governance that scales across many teams.">
+<div class="fig t1"><span class="tag">DevOps</span><span class="read-time">6 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">Harness CI/CD: Pipelines as Code Without the YAML Sprawl</h3>
+<p class="card-excerpt">What makes Harness different from a plain CI runner — native deployment strategies, built-in verification, and governance that scales across many teams.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+<a class="card" href="posts/github-actions-practical-patterns.html" data-title="GitHub Actions: Practical Patterns Beyond the Basics" data-tag="DevOps" data-excerpt="Reusable workflows, matrix builds, caching, and OIDC-based cloud auth with no stored secrets — the patterns that matter once you outgrow lint-test-build.">
+<div class="fig t2"><span class="tag">DevOps</span><span class="read-time">7 min read</span></div>
+<div class="card-body">
+<h3 class="card-title">GitHub Actions: Practical Patterns Beyond the Basics</h3>
+<p class="card-excerpt">Reusable workflows, matrix builds, caching, and OIDC-based cloud auth with no stored secrets — the patterns that matter once you outgrow lint-test-build.</p>
+<div class="card-foot"><span>June 2026</span><span class="read-link">Read more</span></div>
+</div>
+</a>
+</div>
+<p class="no-results" id="no-results">No blogs match your search.</p>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+const searchInput=document.getElementById('blog-search');
+const grid=document.getElementById('blog-grid');
+const noResults=document.getElementById('no-results');
+const cards=Array.from(grid.querySelectorAll('.card'));
+searchInput.addEventListener('input',()=>{
+  const q=searchInput.value.trim().toLowerCase();
+  let visibleCount=0;
+  cards.forEach(card=>{
+    const haystack=(card.dataset.title+' '+card.dataset.tag+' '+card.dataset.excerpt).toLowerCase();
+    const match=haystack.includes(q);
+    card.style.display=match?'':'none';
+    if(match)visibleCount++;
+  });
+  noResults.classList.toggle('visible',visibleCount===0);
+});
+</script>
+</body></html>

@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Camunda and Its Features — Aakash Mohandas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--accent2:#2F8F6B;--accent2-bg:#E3F3EC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2.5rem 3rem}
+.back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
+.back-link:hover{gap:.7rem}
+.article{max-width:42rem}
+.meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.tag{font:700 .62rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;background:var(--accent2-bg);color:var(--accent2)}
+.date,.read{font-size:.78rem;color:var(--mut);font-weight:600}
+.article h1{font:800 clamp(1.7rem,3.4vw,2.4rem)/1.25 "Inter Tight",sans-serif;letter-spacing:-.02em;margin:0 0 1rem}
+.lead{font-size:1.05rem;color:var(--mut);line-height:1.7;border-left:3px solid var(--accent2);padding-left:1.1rem;margin-bottom:2.5rem}
+.article h2{font:800 1.3rem/1.3 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:2.25rem 0 .9rem}
+.article h3{font:700 1.05rem/1.3 "Inter Tight",sans-serif;margin:1.75rem 0 .6rem}
+.article p{font-size:.95rem;color:var(--fg);opacity:.85;line-height:1.8;margin-bottom:1.1rem}
+.article ul,.article ol{padding-left:1.4rem;margin-bottom:1.1rem}
+.article li{font-size:.93rem;opacity:.8;line-height:1.75;margin-bottom:.35rem}
+.article strong{font-weight:700;opacity:1}
+.article code{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:var(--p1);border:1px solid var(--line);border-radius:4px;padding:.15rem .4rem;color:var(--accent)}
+.article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
+.callout{background:var(--accent2-bg);border-left:3px solid var(--accent2);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+</style>
+</head>
+<body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="../index.html">Blogs</a></li>
+<li><a href="../../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<a class="back-link" href="../index.html">← Back to Blog</a>
+<article class="article">
+  <div class="meta">
+    <span class="tag">DevOps</span>
+    <span class="date">May 2026</span>
+    <span class="read">7 min read</span>
+  </div>
+  <h1>Camunda and Its Features: Orchestrating Workflows at Scale</h1>
+  <p class="lead">A look at what Camunda actually is, why process orchestration matters for distributed systems, and the features that make it stand out from a plain job queue or cron job.</p>
+
+  <h2>Why orchestration needs its own tool</h2>
+  <p>Most backend systems eventually accumulate a web of long-running processes — order fulfilment, approval chains, onboarding flows, incident response. Teams often start by stitching these together with queues, cron jobs, and a lot of "if this service fails, retry manually" tribal knowledge. It works until it doesn't — usually right when a process spans five microservices and a human approval step.</p>
+  <p>Camunda is a workflow and decision automation platform built specifically for this problem. It lets you model business processes as explicit, visual diagrams (BPMN) and then actually executes them — tracking state, handling retries, and giving you visibility into exactly where every instance of a process currently sits.</p>
+
+  <h2>BPMN: Processes as Diagrams, Not Just Documentation</h2>
+  <p>The core idea in Camunda is BPMN (Business Process Model and Notation) — an open standard for describing processes with boxes and arrows. The critical difference from a whiteboard diagram is that in Camunda, <strong>the diagram is the executable artifact</strong>. There's no separate step where an engineer translates the diagram into code that silently drifts out of sync.</p>
+  <div class="callout">✓ Because the process model is executable, a non-engineer (BA, product owner) can read the exact same diagram that's running in production — no translation gap between "what we designed" and "what actually runs".</div>
+  <p>A typical process includes start events, tasks (service calls, user tasks, scripts), gateways (decision branches), and end events. Camunda's engine walks this graph for every process instance, persisting its current position so it can resume after a crash, a deployment, or a multi-day wait for human approval.</p>
+
+  <h2>Core Features</h2>
+  <h3>1. Visual process modelling</h3>
+  <p>The Camunda Modeler (desktop app or web-based in Camunda 8) lets you drag-and-drop BPMN elements, wire up service calls, and define gateway conditions — all without writing orchestration glue code by hand.</p>
+  <h3>2. Durable execution and state persistence</h3>
+  <p>Every running process instance has its state persisted. If a worker crashes mid-process, or a human task sits untouched for three days, the process picks up exactly where it left off — no re-running already-completed steps.</p>
+  <h3>3. Service tasks and external task workers</h3>
+  <p>Processes call out to real services via <em>service tasks</em>. In Camunda 8 (Zeebe-based), this is done through job workers that poll for work, execute it, and report completion — a pattern that scales horizontally and degrades gracefully if a worker pool is temporarily down.</p>
+  <pre><code>// Example: a Java external task worker (Camunda 8 / Zeebe client)
+zeebeClient.newWorker()
+  .jobType("charge-payment")
+  .handler((client, job) -> {
+    // do the actual work
+    client.newCompleteCommand(job.getKey()).send();
+  })
+  .open();</code></pre>
+  <h3>4. Human task management</h3>
+  <p>Not everything can be automated. User tasks route work into a task list (Camunda Tasklist) where a human approves, rejects, or provides input — with full audit trail of who did what, when.</p>
+  <h3>5. DMN for decision logic</h3>
+  <p>Camunda also ships DMN (Decision Model and Notation) — decision tables that externalise business rules ("if loan amount &gt; 50000 and credit score &lt; 650, route to manual review") out of code and into a reviewable, versionable table that business stakeholders can actually read and modify.</p>
+  <h3>6. Visibility and operations tooling</h3>
+  <p>Operate (Camunda 8's monitoring component) gives you a live view of every process instance — where it's stuck, what variables it holds, and the ability to retry or modify a failed instance without redeploying code. This is the feature that saves the most on-call time: instead of grepping logs across five services, you look at one diagram with a red marker on the stuck step.</p>
+
+  <h2>Camunda 7 vs. Camunda 8</h2>
+  <p>Camunda 7 is a Java-embeddable engine (runs inside your JVM app, backed by a relational database). Camunda 8 is a full re-architecture built on Zeebe — a horizontally scalable, event-streaming engine designed for cloud-native, high-throughput workloads, with brokers, exporters, and a clear separation between the orchestration engine and your application code.</p>
+  <ul>
+    <li><strong>Camunda 7</strong> — simpler to embed, good fit for monoliths or lower-throughput workflows, mature ecosystem</li>
+    <li><strong>Camunda 8</strong> — designed for distributed, high-scale, cloud-native deployments (Kubernetes-first), decoupled workers, SaaS or self-managed</li>
+  </ul>
+  <div class="callout">💡 If you're starting fresh in a Kubernetes-native environment, Camunda 8 is almost always the better starting point — it was designed for exactly that deployment model.</div>
+
+  <h2>Where it fits in a DevOps-minded stack</h2>
+  <p>From an infrastructure perspective, Camunda 8 behaves like any other stateful, horizontally-scalable service: it runs well on Kubernetes, benefits from proper resource requests/limits, and needs the same observability discipline (metrics, structured logs) as the rest of your platform. Zeebe brokers use a Raft-based consensus protocol for clustering, so plan your node counts and storage the same way you would for any distributed data store.</p>
+  <p>Job workers are typically deployed as their own services — meaning they fit naturally into existing CI/CD pipelines, scale independently of the orchestration engine, and can be written in whatever language has a Zeebe client (Java, Node, Go, Python, and others via gRPC).</p>
+
+  <h2>Final thoughts</h2>
+  <p>Camunda isn't the right tool for every background job — if you just need "do X five seconds from now," a simple queue is fine. But once a process involves multiple services, conditional branching, human approval steps, or needs to survive for days or weeks, an orchestration engine built for exactly that problem beats a pile of cron jobs and custom retry logic every time. The visual, executable process model is the real unlock — it turns "how does this actually work in production" from an archaeology exercise into something you can just look at.</p>
+</article>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+</script>
+</body></html>

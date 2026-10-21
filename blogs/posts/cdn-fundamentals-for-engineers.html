@@ -1,0 +1,116 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>CDNs: What Every Engineer Should Actually Know — Aakash Mohandas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--accent2:#2F8F6B;--accent2-bg:#E3F3EC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}}
+:root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;padding:1rem;background:var(--page);color:var(--fg);font:15px/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
+.side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
+.av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
+.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.bio{color:var(--mut);margin:0 0 1.5rem}
+.nav{list-style:none;margin:0 0 2rem;padding:0}
+.nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
+.nav a{display:block;padding:.6rem 0;text-decoration:none;color:var(--mut)}
+.nav a:hover,.nav a[aria-current]{color:var(--fg)}.nav a[aria-current]{font-weight:600}
+.pill{display:flex;width:max-content;margin:0 auto 1.25rem;align-items:center;gap:.5rem;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);font-size:.85rem}
+.pill i{width:.5rem;height:.5rem;border-radius:50%;background:var(--ok)}
+.btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
+.fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
+.fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
+.main{background:var(--main);padding:2.5rem 3rem}
+.back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
+.back-link:hover{gap:.7rem}
+.article{max-width:42rem}
+.meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.tag{font:700 .62rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;background:var(--accent2-bg);color:var(--accent2)}
+.date,.read{font-size:.78rem;color:var(--mut);font-weight:600}
+.article h1{font:800 clamp(1.7rem,3.4vw,2.4rem)/1.25 "Inter Tight",sans-serif;letter-spacing:-.02em;margin:0 0 1rem}
+.lead{font-size:1.05rem;color:var(--mut);line-height:1.7;border-left:3px solid var(--accent2);padding-left:1.1rem;margin-bottom:2.5rem}
+.article h2{font:800 1.3rem/1.3 "Inter Tight",sans-serif;letter-spacing:-.01em;margin:2.25rem 0 .9rem}
+.article h3{font:700 1.05rem/1.3 "Inter Tight",sans-serif;margin:1.75rem 0 .6rem}
+.article p{font-size:.95rem;color:var(--fg);opacity:.85;line-height:1.8;margin-bottom:1.1rem}
+.article ul,.article ol{padding-left:1.4rem;margin-bottom:1.1rem}
+.article li{font-size:.93rem;opacity:.8;line-height:1.75;margin-bottom:.35rem}
+.article strong{font-weight:700;opacity:1}
+.article code{font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:var(--p1);border:1px solid var(--line);border-radius:4px;padding:.15rem .4rem;color:var(--accent)}
+.article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+.article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
+.callout{background:var(--accent2-bg);border-left:3px solid var(--accent2);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+</style>
+</head>
+<body>
+<div class="shell"><aside class="side">
+<div class="av" aria-hidden="true">AM</div>
+<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
+<ul class="nav">
+<li><a href="../index.html">Blogs</a></li>
+<li><a href="../../index.html">Portfolio</a></li>
+<li><a href="#">LinkedIn</a></li><li><a href="#">GitHub</a></li></ul>
+<div class="pill"><i></i>Available for work</div>
+<a class="btn" href="../../index.html">Get in touch</a>
+<div class="fine"><span>&copy; 2026 Aakash Mohandas</span><button id="t">Light / dark</button></div>
+</aside>
+<main class="main">
+<a class="back-link" href="../index.html">← Back to Blog</a>
+<article class="article">
+  <div class="meta">
+    <span class="tag">Networking</span>
+    <span class="date">June 2026</span>
+    <span class="read">6 min read</span>
+  </div>
+  <h1>CDNs: What Every Engineer Should Actually Know</h1>
+  <p class="lead">A CDN is more than "a cache in front of your site." Cache keys, invalidation, edge compute, and origin shielding are the parts that actually matter once you're debugging a production incident.</p>
+
+  <h2>What a CDN is actually doing</h2>
+  <p>A Content Delivery Network is a globally distributed set of edge servers (Points of Presence) that cache and serve content closer to end users, reducing latency and offloading your origin servers. That's the one-sentence pitch. The part most engineers skip past is <em>how</em> caching decisions are made — and that's where production incidents usually live.</p>
+
+  <h2>Cache keys: the most important concept</h2>
+  <p>Every cached response is stored against a cache key — by default usually the request URL, but configurable to include headers, query strings, or cookies. Get this wrong and you either over-cache (serving user A's personalised response to user B) or under-cache (treating <code>?utm_source=twitter</code> as a different page from the canonical URL, destroying your hit ratio).</p>
+  <pre><code># Example: Cloudflare cache key customisation (Cache Rules)
+# Include only specific query params in the cache key
+cache_key = {
+  "query_string": { "include": ["id", "lang"] },
+  "header": { "include": ["Accept-Language"] }
+}</code></pre>
+  <div class="callout">✓ Always check what's in your cache key before debugging "why is this stale content showing." Nine times out of ten, the cache key doesn't include something that should make two requests distinct (or does include something that shouldn't).</div>
+
+  <h2>Cache-Control headers: origin sets the contract</h2>
+  <p>The CDN takes its cue from your origin's <code>Cache-Control</code> header. Getting these wrong is the single most common cause of "why is my CDN not caching" or its evil twin, "why is my CDN serving stale data for an hour after I deployed."</p>
+  <pre><code>Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=60</code></pre>
+  <ul>
+    <li><code>max-age</code> — how long browsers cache it</li>
+    <li><code>s-maxage</code> — how long shared caches (the CDN) cache it, overriding <code>max-age</code> for the edge</li>
+    <li><code>stale-while-revalidate</code> — serve stale content instantly while refetching in the background, hiding origin latency from the user entirely</li>
+  </ul>
+
+  <h2>Invalidation: the other hard problem</h2>
+  <p>"There are only two hard things in computer science: cache invalidation and naming things." Purging is slow and expensive at scale (especially wildcard purges); tagging content with cache tags/surrogate keys so you can invalidate precisely ("purge everything tagged <code>product:1234</code>") is almost always worth the upfront integration work over purging by URL pattern.</p>
+
+  <h2>Origin shielding and the thundering herd</h2>
+  <p>When cached content expires simultaneously across many edge nodes, they can all miss cache at once and hammer your origin — a thundering herd. Origin shielding routes all edge-to-origin traffic through a single designated shield PoP, so only one request reaches your origin per cache miss instead of one per edge location worldwide.</p>
+
+  <h2>Edge compute: the CDN as a runtime</h2>
+  <p>Modern CDNs (Cloudflare Workers, Fastly Compute, AWS CloudFront Functions/Lambda@Edge) let you run actual code at the edge — auth checks, A/B test routing, header rewriting, even full API responses — without a round trip to origin. This blurs the line between "CDN" and "platform," and is worth knowing about before reaching for a full origin round-trip for logic that could run in milliseconds at the edge.</p>
+
+  <h2>Debugging checklist</h2>
+  <ul>
+    <li>Check response headers: <code>CF-Cache-Status</code>, <code>X-Cache</code>, or equivalent — HIT, MISS, EXPIRED, BYPASS tell you exactly what happened</li>
+    <li>Confirm the cache key actually matches what you expect (query strings, headers, cookies, device type)</li>
+    <li>Check origin <code>Cache-Control</code> headers are what you think they are — not overridden by a proxy or framework default</li>
+    <li>For stale content after deploy: confirm your deploy pipeline triggers a purge, and that it targets the right tags/URLs</li>
+  </ul>
+
+  <h2>Final thoughts</h2>
+  <p>A CDN is infrastructure you interact with constantly but often reason about superficially. Understanding cache keys, header contracts, and invalidation strategy turns "the CDN is being weird" into a debuggable, predictable system — and often removes the need to reach for origin-side fixes at all.</p>
+</article>
+</main></div>
+<script>
+t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+</script>
+</body></html>
