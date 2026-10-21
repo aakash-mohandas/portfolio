@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Aakash Mohandas — Blog</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/</link>
+<description>Notes on Terraform, Vault, Kubernetes, Go and AI tooling from a Cloud &amp; DevOps engineer in Dublin.</description>
+<language>en</language>
+<lastBuildDate>Wed, 21 Oct 2026 16:50:57 +0000</lastBuildDate>
+<atom:link href="https://aakash-mohandas.github.io/portfolio/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>OpenCode: What It Is, What Makes It Different, and How to Use It From Your Phone</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/opencode-guide.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/opencode-guide.html</guid>
+<pubDate>Thu, 01 Oct 2026 09:00:00 +0000</pubDate>
+<category>AI Tools</category>
+<description>A hands-on guide to OpenCode: the open-source AI coding agent that runs in your terminal, desktop, or browser. Features, an honest comparison with Claude Code, and how to drive it from your phone.</description>
+</item>
+<item>
+<title>Troubleshooting Production Incidents with Claude</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/troubleshooting-production-with-claude.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/troubleshooting-production-with-claude.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>AI Tools</category>
+<description>A practical workflow for using an AI assistant during an actual incident — what to paste, what to ask, and where human judgement still has to lead.</description>
+</item>
+<item>
+<title>Temporal: Durable Execution for Distributed Systems</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/temporal-durable-execution.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/temporal-durable-execution.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>Why retry logic, timers, and state machines scattered across your services are a code smell — and how Temporal lets you write distributed workflows as plain, durable functions.</description>
+</item>
+<item>
+<title>Golang for Infrastructure Engineers</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/golang-for-infra-engineers.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/golang-for-infra-engineers.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>Golang</category>
+<description>Terraform, Kubernetes, Docker, Vault, Terragrunt, Prometheus — the entire modern infrastructure stack is written in Go. Here's why, and what it means for engineers writing…</description>
+</item>
+<item>
+<title>Harness CI/CD: Pipelines as Code Without the YAML Sprawl</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/harness-ci-cd-pipelines.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/harness-ci-cd-pipelines.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>A look at what makes Harness different from a plain CI runner — native deployment strategies, built-in verification, and governance that scales across many teams.</description>
+</item>
+<item>
+<title>CDNs: What Every Engineer Should Actually Know</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/cdn-fundamentals-for-engineers.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/cdn-fundamentals-for-engineers.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>Networking</category>
+<description>A CDN is more than "a cache in front of your site." Cache keys, invalidation, edge compute, and origin shielding are the parts that actually matter once you're…</description>
+</item>
+<item>
+<title>Terragrunt: Keeping Terraform DRY at Scale</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/terragrunt-dry-terraform-at-scale.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/terragrunt-dry-terraform-at-scale.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>Once you have more than a handful of Terraform root modules across environments, copy-pasted backend blocks and provider configs become a maintenance tax. Terragrunt removes…</description>
+</item>
+<item>
+<title>Claude Features Every Engineer Should Be Using</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/claude-features-for-engineers.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/claude-features-for-engineers.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>AI Tools</category>
+<description>Beyond "ask it to write a function" — the features that actually change how I work day to day: large context windows, project knowledge, artifacts, and tool use.</description>
+</item>
+<item>
+<title>GitHub Actions: Practical Patterns Beyond the Basics</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/github-actions-practical-patterns.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/github-actions-practical-patterns.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>Past "lint, test, build" lies a set of patterns that actually matter in production pipelines: reusable workflows, matrix builds, caching, and OIDC-based cloud auth…</description>
+</item>
+<item>
+<title>HashiCorp Vault PKI: Automating Certificate Lifecycle</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/vault-pki-secrets-engine.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/vault-pki-secrets-engine.html</guid>
+<pubDate>Mon, 01 Jun 2026 09:00:00 +0000</pubDate>
+<category>Security</category>
+<description>Manually renewing internal TLS certificates doesn't scale past a handful of services. Vault's PKI secrets engine turns certificate issuance into an API call with a built-in expiry.</description>
+</item>
+<item>
+<title>Camunda and Its Features</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/camunda-workflow-engine-features.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/camunda-workflow-engine-features.html</guid>
+<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>A look at what Camunda actually is, why process orchestration matters for distributed systems, and the features that make it stand out from a plain job queue or cron job.</description>
+</item>
+<item>
+<title>Terraform Best Practices</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/terraform-best-practices.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/terraform-best-practices.html</guid>
+<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+<category>DevOps</category>
+<description>State management, module design, workspace strategy, and the anti-patterns I see repeated in teams across AWS, Azure, and GCP.</description>
+</item>
+<item>
+<title>HashiCorp Vault Best Practices</title>
+<link>https://aakash-mohandas.github.io/portfolio/blogs/posts/hashicorp-vault-best-practices.html</link>
+<guid isPermaLink="true">https://aakash-mohandas.github.io/portfolio/blogs/posts/hashicorp-vault-best-practices.html</guid>
+<pubDate>Fri, 01 May 2026 09:00:00 +0000</pubDate>
+<category>Security</category>
+<description>Dynamic secrets, auth methods, policy design, and the operational mistakes teams make when scaling Vault in production Kubernetes environments.</description>
+</item>
+</channel>
+</rss>
