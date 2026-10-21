@@ -81,6 +81,22 @@ pre{margin:0;width:100%;background:#14171C;color:#E6EAF0;border-radius:10px;padd
 .langs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
 .langs li{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:.4rem .85rem;font-size:.83rem}
 .langs em{font-style:normal;color:var(--mut);font-size:.75rem;margin-left:.35rem}
+/* Skills, awards, education */
+.tl-points{margin:.5rem 0 0;padding-left:1.05rem;color:var(--mut);font-size:.85rem;line-height:1.65;max-width:76ch}
+.tl-points li{margin-bottom:.25rem}
+.skills{margin:0;display:flex;flex-direction:column;gap:1.05rem}
+.skills dt{font:700 .67rem/1 "Inter Tight",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:.45rem}
+.skills dd{margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.tags span{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:.3rem .58rem;font-size:.77rem}
+.awards{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+.awards li{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem;font-size:.85rem}
+.awards b{display:block;margin-bottom:.2rem;font-weight:600}
+.awards span{color:var(--mut);font-size:.79rem;line-height:1.55}
+.edu{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.edu li{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.88rem;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem}
+.edu b{font-weight:600}
+.edu li>span:last-child{color:var(--mut);font-size:.79rem;white-space:nowrap}
 @media(max-width:860px){
 .shell{grid-template-columns:1fr;border-radius:20px}
 .side{position:static;padding:1.1rem 1.25rem .6rem;display:flex;flex-wrap:wrap;align-items:center;gap:.55rem .75rem}
@@ -122,7 +138,7 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 <section class="sec" aria-labelledby="h-about">
 <h2 id="h-about">About</h2>
 <p>DevOps and platform engineer in Dublin with <strong>13+ years</strong> across test automation, CI/CD and cloud infrastructure. I started writing Selenium frameworks at Accenture in 2013, moved into release and infrastructure engineering at Informatica, and I'm now <strong>Lead Member of Technical Staff at Salesforce</strong>.</p>
-<p>Most of my work is making infrastructure boring: Terraform modules that compose across clouds, secrets platforms on Vault, and delivery pipelines teams actually trust. I write about the parts that were hard to figure out.</p>
+<p>Most of my work is making infrastructure boring: Kubernetes platforms, Terraform modules that compose across clouds, HashiCorp Vault as the secrets layer, and Harness and GitOps pipelines teams actually trust. I also build Temporal workflows in Go and write about the parts that were hard to figure out.</p>
 </section>
 
 <section class="sec" aria-labelledby="h-exp">
@@ -135,6 +151,13 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 <li class="tl-item">
 <div class="tl-head"><span class="tl-role">Staff Infrastructure Engineer</span><span class="tl-when">Apr 2025 – Feb 2026</span></div>
 <div class="tl-meta"><b>Informatica</b> · Dublin, Ireland · Hybrid</div>
+<ul class="tl-points">
+<li>Provisioned and operated production Kubernetes clusters; built Harness pipelines and templates to deploy applications onto them.</li>
+<li>Managed multi-cloud infrastructure as code with Terraform, Terragrunt and Pulumi across AWS, Azure, GCP and OCI.</li>
+<li>Deployed and configured HashiCorp Vault with Helm, Terragrunt and native Kubernetes features; ran GitOps delivery with Flux and Argo CD.</li>
+<li>Built Docker images and Packer/Chef-baked CentOS and RHEL VM images; automated in Go, Python and Bash, integrating Jenkins, Harness and Lambda.</li>
+<li>Wrote Temporal workflows in Go integrated with internal UI systems.</li>
+</ul>
 </li>
 <li class="tl-item">
 <div class="tl-head"><span class="tl-role">Principal DevOps Engineer</span><span class="tl-when">Apr 2023 – Mar 2025</span></div>
@@ -151,10 +174,18 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 <li class="tl-item">
 <div class="tl-head"><span class="tl-role">Sr. Test Automation Engineer</span><span class="tl-when">May 2016 – Dec 2017</span></div>
 <div class="tl-meta"><b>DigitasLBi</b> · Mumbai, India</div>
+<ul class="tl-points">
+<li>Built a hybrid automation framework in Java (Selenium WebDriver, Maven, TestNG, Extend Reports) to the client's requirements.</li>
+<li>Wired the framework into TeamCity and BrowserStack for cross-browser continuous integration; added Postman API automation and JMeter performance scripts.</li>
+</ul>
 </li>
 <li class="tl-item">
 <div class="tl-head"><span class="tl-role">Test Automation Engineer</span><span class="tl-when">Jan 2013 – May 2016</span></div>
 <div class="tl-meta"><b>Accenture</b> · Pune, India</div>
+<ul class="tl-points">
+<li>Automated regression and sanity suites with UFT and VB scripts, steadily increasing code coverage.</li>
+<li>Analysed requirement changes, ran test-driven development, and tracked defects in Quality Center / ALM.</li>
+</ul>
 </li>
 </ol>
 </section>
@@ -167,8 +198,30 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
   capabilities = ["read"]
 }</pre></div><div class="cap"><b>Secrets platform on Vault</b><span>Security</span></div></a>
 <a class="card" href="blogs/posts/github-actions-practical-patterns.html"><div class="fig t3"><div class="row"><span class="chip">Commit</span><span class="chip">&rarr;</span><span class="chip">ArgoCD</span><span class="chip">&rarr;</span><span class="chip">Cluster</span></div><div class="row"><span class="chip">FedRAMP</span><span class="chip">GDPR</span></div></div><div class="cap"><b>Compliant delivery pipelines</b><span>Delivery</span></div></a>
-<a class="card" href="blogs/posts/harness-ci-cd-pipelines.html"><div class="fig t4"><div class="row"><span class="chip">Terraform</span><span class="chip">Pulumi</span><span class="chip">Kubernetes</span><span class="chip">Harness</span><span class="chip">Vault</span><span class="chip">Go</span></div></div><div class="cap"><b>Skills</b><span>Stack</span></div></a>
+<a class="card" href="blogs/posts/harness-ci-cd-pipelines.html"><div class="fig t4"><div class="row"><span class="chip">Terraform</span><span class="chip">Pulumi</span><span class="chip">Kubernetes</span><span class="chip">Harness</span><span class="chip">Vault</span><span class="chip">Go</span></div></div><div class="cap"><b>Platform toolchain</b><span>Stack</span></div></a>
 </div>
+</section>
+
+<section class="sec" aria-labelledby="h-skills">
+<h2 id="h-skills">Skills</h2>
+<dl class="skills">
+<div><dt>Cloud &amp; Infrastructure as Code</dt><dd class="tags"><span>AWS</span><span>Azure</span><span>GCP</span><span>OCI</span><span>Terraform</span><span>Terragrunt</span><span>Pulumi</span><span>Packer</span><span>Chef</span></dd></div>
+<div><dt>CI/CD</dt><dd class="tags"><span>Harness</span><span>GitHub Actions</span><span>Jenkins</span><span>Spinnaker</span><span>TeamCity</span></dd></div>
+<div><dt>Containers &amp; Orchestration</dt><dd class="tags"><span>Kubernetes</span><span>Helm</span><span>Docker</span><span>Flux</span><span>Argo CD</span><span>Istio</span></dd></div>
+<div><dt>Secrets &amp; Security</dt><dd class="tags"><span>HashiCorp Vault</span><span>Thycotic</span><span>AWS IAM</span><span>cert-manager</span><span>Certbot</span><span>OpenSSL</span><span>StackRox</span><span>Anchore</span><span>Grype</span></dd></div>
+<div><dt>Observability</dt><dd class="tags"><span>Prometheus</span><span>Grafana</span><span>Kibana</span><span>Opsgenie</span></dd></div>
+<div><dt>Languages</dt><dd class="tags"><span>Go</span><span>Python</span><span>Bash</span><span>Ruby</span><span>Java</span></dd></div>
+<div><dt>Compliance &amp; Testing</dt><dd class="tags"><span>FedRAMP</span><span>GDPR</span><span>Selenium</span><span>InSpec</span><span>Postman</span><span>JMeter</span></dd></div>
+</dl>
+</section>
+
+<section class="sec" aria-labelledby="h-awards">
+<h2 id="h-awards">Awards</h2>
+<ul class="awards">
+<li><b>Stellar Award</b><span>For identifying design and development flaws in new products and driving immediate resolution ahead of delivery.</span></li>
+<li><b>Spotlight Award</b><span>For resolving a blocker that impacted multiple teams and unblocked key deliverables.</span></li>
+<li><b>INFA Star Team Award</b><span>For exceptional contribution as part of the delivery team.</span></li>
+</ul>
 </section>
 
 <section class="sec" aria-labelledby="h-certs">
@@ -197,7 +250,12 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 
 <section class="sec" aria-labelledby="h-edu">
 <h2 id="h-edu">Education</h2>
-<p>Arihant Institute of Business Management</p>
+<ul class="edu">
+<li><span><b>MBA, Information Technology</b> — First Class</span><span>Arihant Institute of Management Studies, Pune · 2017</span></li>
+<li><span><b>BSc, Computer Science</b> — 71%</span><span>S.K. Somaiya College, Mumbai · 2012</span></li>
+<li><span><b>HSC, Science</b> — 64%</span><span>V.K.K. Menon College, Mumbai · 2009</span></li>
+<li><span><b>SSC</b> — 78%</span><span>M.S.S.T, Kalyan · 2007</span></li>
+</ul>
 </section>
 
 </main></div>
