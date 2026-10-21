@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://aakash.parsedthoughts.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/camunda-workflow-engine-features.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/cdn-fundamentals-for-engineers.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/claude-features-for-engineers.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/github-actions-practical-patterns.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/golang-for-infra-engineers.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/harness-ci-cd-pipelines.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/hashicorp-vault-best-practices.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/opencode-guide.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/temporal-durable-execution.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/terraform-best-practices.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/terragrunt-dry-terraform-at-scale.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/troubleshooting-production-with-claude.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://aakash.parsedthoughts.com/blogs/posts/vault-pki-secrets-engine.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

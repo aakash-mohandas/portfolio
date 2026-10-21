@@ -1,6 +1,20 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GitHub Actions: Practical Patterns Beyond the Basics — Aakash Mohandas</title>
+<meta name="description" content="Past &quot;lint, test, build&quot; lies a set of patterns that actually matter in production pipelines: reusable workflows, matrix builds, caching, and OIDC-based cloud auth…">
+<link rel="canonical" href="https://aakash.parsedthoughts.com/blogs/posts/github-actions-practical-patterns.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub Actions: Practical Patterns Beyond the Basics">
+<meta property="og:description" content="Past &quot;lint, test, build&quot; lies a set of patterns that actually matter in production pipelines: reusable workflows, matrix builds, caching, and OIDC-based cloud auth…">
+<meta property="og:url" content="https://aakash.parsedthoughts.com/blogs/posts/github-actions-practical-patterns.html">
+<meta property="og:site_name" content="Aakash Mohandas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub Actions: Practical Patterns Beyond the Basics">
+<meta name="twitter:description" content="Past &quot;lint, test, build&quot; lies a set of patterns that actually matter in production pipelines: reusable workflows, matrix builds, caching, and OIDC-based cloud auth…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#E6E7E9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#07080A" media="(prefers-color-scheme: dark)">
+<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t}catch(e){}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><style>
-:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--accent2:#2F8F6B;--accent2-bg:#E3F3EC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;--accent:#5B4FE0;--accent-bg:#EEEBFB;--accent2:#2F8F6B;--accent2-bg:#E3F3EC;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}}
 :root[data-theme="dark"]{--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038;--accent:#8D82FF;--accent-bg:#201C3A;--accent2:#4FC793;--accent2-bg:#132620}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -10,7 +24,7 @@ a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg)
 .shell{max-width:78rem;margin:0 auto;background:var(--panel);border-radius:28px;display:grid;grid-template-columns:21rem minmax(0,1fr);overflow:clip}
 .side{padding:2.25rem 2rem;align-self:start;position:sticky;top:1rem}
 .av{display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:50%;background:var(--fg);color:var(--panel);font:800 1.05rem "Inter Tight",sans-serif}
-.side h1{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
+.side h1,.side .sname{font:800 clamp(1.9rem,3vw,2.5rem)/1.3 "Inter Tight",Arial,sans-serif;letter-spacing:-.02em;margin:1.5rem 0 1.25rem;padding-bottom:.15em}
 .bio{color:var(--mut);margin:0 0 1.5rem}
 .nav{list-style:none;margin:0 0 2rem;padding:0}
 .nav li{border-bottom:1px solid var(--line)}.nav li:last-child{border:0}
@@ -21,7 +35,7 @@ a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg)
 .btn{display:block;text-align:center;padding:.85rem;border-radius:99px;background:var(--fg);color:var(--panel);text-decoration:none;font-weight:600}
 .fine{display:flex;flex-direction:column;align-items:center;gap:.25rem;margin-top:1.25rem;color:var(--mut);font-size:.8rem}
 .fine button{font:inherit;background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;padding:0}
-.main{background:var(--main);padding:2.5rem 3rem}
+.main{min-width:0;background:var(--main);padding:2.5rem 3rem}
 .back-link{font:700 .78rem/1 "Inter Tight",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:1.5rem}
 .back-link:hover{gap:.7rem}
 .article{max-width:42rem}
@@ -40,13 +54,14 @@ a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--fg)
 .article pre{background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;overflow-x:auto;margin-bottom:1.25rem}
 .article pre code{background:none;border:0;padding:0;font-size:.83rem;color:var(--fg);opacity:.9}
 .callout{background:var(--accent2-bg);border-left:3px solid var(--accent2);border-radius:10px;padding:.9rem 1.1rem;margin:1.35rem 0;font-size:.88rem;line-height:1.65}
-@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static}.main{padding:1.5rem}}
+@media(max-width:860px){.shell{grid-template-columns:1fr;border-radius:20px}.side{position:static;padding:1.1rem 1.25rem .6rem;display:flex;flex-wrap:wrap;align-items:center;gap:.55rem .75rem}.side .av{width:2.5rem;height:2.5rem;font-size:.85rem;flex:0 0 auto}.side h1,.side .sname{font-size:1.12rem;line-height:1.25;margin:0;flex:1 1 auto;letter-spacing:-.01em}.side .sname{font:800 1.12rem/1.25 "Inter Tight",sans-serif}.side .bio{display:none}.side .pill{margin:0;padding:.25rem .7rem;font-size:.75rem;order:2}.side .nav{display:flex;flex-wrap:wrap;gap:.1rem 1.1rem;order:3;width:100%;margin:.2rem 0 0}.side .nav li{border:0}.side .nav a{padding:.3rem 0;font-size:.84rem}.side>.btn{order:5;width:100%;padding:.6rem;font-size:.88rem;margin-top:.3rem}.side .fine{order:6;width:100%;flex-direction:row;justify-content:space-between;margin-top:.45rem;font-size:.75rem}.main{padding:1.5rem}}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"GitHub Actions: Practical Patterns Beyond the Basics","description":"Past &quot;lint, test, build&quot; lies a set of patterns that actually matter in production pipelines: reusable workflows, matrix builds, caching, and OIDC-based cloud auth…","datePublished":"2026-06-01","author":{"@type":"Person","name":"Aakash Mohandas","url":"https://aakash.parsedthoughts.com/"},"publisher":{"@type":"Person","name":"Aakash Mohandas"},"mainEntityOfPage":"https://aakash.parsedthoughts.com/blogs/posts/github-actions-practical-patterns.html"}</script>
 </head>
 <body>
 <div class="shell"><aside class="side">
 <div class="av" aria-hidden="true">AM</div>
-<h1>Cloud &amp; DevOps Engineer</h1>
+<p class="sname">Cloud &amp; DevOps Engineer</p>
 <p class="bio">Living and working in Dublin. Lead Member of Technical Staff in infrastructure DevOps, with 13+ years automating cloud platforms. I write about Terraform, Vault and Kubernetes.</p>
 <ul class="nav">
 <li><a href="../index.html">Blogs</a></li>
@@ -137,6 +152,6 @@ steps:
 </article>
 </main></div>
 <script>
-t.onclick=()=>{const d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;d.dataset.theme=k?'light':'dark'};
+t.onclick=()=>{const d=document.documentElement,cur=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),next=cur==="dark"?"light":"dark";d.dataset.theme=next;try{localStorage.setItem("theme",next)}catch(e){}};
 </script>
 </body></html>
