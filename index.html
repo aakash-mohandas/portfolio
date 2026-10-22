@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#E6E7E9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#07080A" media="(prefers-color-scheme: dark)">
 <script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t}catch(e){}</script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Aakash Mohandas","jobTitle":"Lead Member of Technical Staff","url":"https://aakash-mohandas.github.io/portfolio/","address":{"@type":"PostalAddress","addressLocality":"Dublin","addressCountry":"IE"},"worksFor":{"@type":"Organization","name":"Salesforce"},"knowsAbout":["Terraform","HashiCorp Vault","Kubernetes","AWS","Azure","GCP","Go","CI/CD","Harness","Platform Engineering"],"knowsLanguage":[{"@type":"Language","name":"English"},{"@type":"Language","name":"Malayalam"},{"@type":"Language","name":"Hindi"}],"sameAs":["https://github.com/aakash-mohandas","https://www.linkedin.com/in/aakash-mohandas-8a1b8397/"]}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Inter+Tight:wght@700;800&display=swap"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Aakash Mohandas","jobTitle":"Lead Member of Technical Staff","url":"https://aakash-mohandas.github.io/portfolio/","address":{"@type":"PostalAddress","addressLocality":"Dublin","addressCountry":"IE"},"worksFor":{"@type":"Organization","name":"Salesforce"},"knowsAbout":["Terraform","HashiCorp Vault","HashiCorp Consul","Kubernetes","AWS","Azure","GCP","OCI","Salesforce Hyperforce","Camunda Zeebe","Temporal","Go","CI/CD","Harness","Platform Engineering"],"knowsLanguage":[{"@type":"Language","name":"English"},{"@type":"Language","name":"Malayalam"},{"@type":"Language","name":"Hindi"}],"sameAs":["https://github.com/aakash-mohandas","https://www.linkedin.com/in/aakash-mohandas-8a1b8397/"]}</script>
 <link rel="alternate" type="application/rss+xml" title="Aakash Mohandas — Blog" href="feed.xml"><style>
 :root{--page:#E6E7E9;--panel:#fff;--main:#F6F6F7;--fg:#15171A;--mut:#5E646B;--line:#E3E5E8;--ok:#2FA362;--p1:#E4E7EB;--p2:#DCD7F5;--p3:#F3D9E2;--p4:#D7E8F0;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#07080A;--panel:#14171C;--main:#0F1115;--fg:#ECEEF1;--mut:#98A0AA;--line:#262B33;--p1:#232932;--p2:#2B2640;--p3:#3A2630;--p4:#1F3038}}
@@ -64,17 +64,12 @@ pre{margin:0;width:100%;background:#14171C;color:#E6EAF0;border-radius:10px;padd
 .card:hover .fig{transform:translateY(-3px)}
 .card:hover .cap b{text-decoration:underline}
 .card:hover .desc{color:var(--fg)}
-/* Experience, compact */
-.xp{list-style:none;margin:0;padding:0}
-.xp li{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.62rem 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.xp li:last-child{border-bottom:0;padding-bottom:0}
-.xp b{font-weight:600;font-size:.9rem}
-.xp em{font-style:normal;color:var(--mut);font-size:.82rem;display:block;margin-top:.1rem}
-.xp>li>span{color:var(--mut);font-size:.78rem;white-space:nowrap;font-variant-numeric:tabular-nums}
 /* Lead + stack */
 .lead{font-size:.98rem;line-height:1.7;max-width:62ch;margin:0}
-.stack{margin:0;font-size:.82rem;color:var(--mut);line-height:1.75;max-width:72ch}
-.stack b{color:var(--fg);font-weight:600;margin-right:.45rem}
+.stacklist{margin:0;display:grid;grid-template-columns:7.5rem 1fr;gap:.5rem 1.5rem;font-size:.84rem;max-width:60ch}
+.stacklist div{display:contents}
+.stacklist dt{color:var(--mut);font:700 .66rem/1.75 "Inter Tight",sans-serif;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+.stacklist dd{margin:0;line-height:1.75}
 @media(max-width:860px){
 .shell{grid-template-columns:1fr;border-radius:20px}
 .side{position:static;padding:1.1rem 1.25rem .6rem;display:flex;flex-wrap:wrap;align-items:center;gap:.55rem .75rem}
@@ -91,7 +86,7 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 .main{padding:1.25rem 1.25rem 2rem;gap:1.9rem}
 .work{grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
 }
-@media(max-width:520px){.fig{min-height:7.5rem}.work{grid-template-columns:1fr;gap:1.1rem}.lead{font-size:.94rem}}
+@media(max-width:520px){.fig{min-height:7.5rem}.work{grid-template-columns:1fr;gap:1.1rem}.lead{font-size:.94rem}.stacklist{grid-template-columns:1fr;gap:0}.stacklist div{display:block}.stacklist dt{margin-top:.7rem}.stacklist dd{line-height:1.65}}
 </style>
 </head>
 <body>
@@ -111,7 +106,7 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 </aside>
 <main class="main">
 
-<p class="lead">I build the platforms other engineers ship on. Currently Lead Member of Technical Staff at Salesforce in Dublin; previously eight years at Informatica.</p>
+<p class="lead">I build the platforms other engineers ship on. Currently Lead Member of Technical Staff at Salesforce in Dublin.</p>
 
 <section class="sec" id="projects" aria-labelledby="h-work">
 <h2 id="h-work">Projects</h2>
@@ -131,18 +126,21 @@ h1{font-size:1.22rem;line-height:1.2;margin:0;flex:1 1 auto;letter-spacing:-.02e
 
 <section class="sec" id="experience" aria-labelledby="h-exp">
 <h2 id="h-exp">Experience</h2>
-<ul class="xp">
-<li><div><b>Lead Member of Technical Staff</b><em>Salesforce · Dublin</em></div><span>2026 – Present</span></li>
-<li><div><b>Staff Infrastructure Engineer</b><em>Informatica · Dublin</em></div><span>2025 – 2026</span></li>
-<li><div><b>Principal DevOps Engineer</b><em>Informatica · Dublin</em></div><span>2023 – 2025</span></li>
-<li><div><b>Lead DevOps Engineer</b><em>Informatica · Bengaluru</em></div><span>2020 – 2023</span></li>
-<li><div><b>Senior DevOps Engineer</b><em>Informatica · Bengaluru</em></div><span>2017 – 2020</span></li>
-<li><div><b>Sr. Test Automation Engineer</b><em>DigitasLBi · Mumbai</em></div><span>2016 – 2017</span></li>
-<li><div><b>Test Automation Engineer</b><em>Accenture · Pune</em></div><span>2013 – 2016</span></li>
-</ul>
+<p><strong>13+ years</strong> in infrastructure and platform engineering — test automation at Accenture from 2013, then DigitasLBi, Informatica, and now Lead Member of Technical Staff at Salesforce.</p>
 </section>
 
-<p class="stack"><b>Stack</b> Kubernetes · Helm · Terraform · Terragrunt · Pulumi · Vault · Harness · Argo CD · Flux · AWS · Azure · GCP · OCI · Go · Python · Bash</p>
+<section class="sec" aria-labelledby="h-stack">
+<h2 id="h-stack">Stack</h2>
+<dl class="stacklist">
+<div><dt>Cloud</dt><dd>AWS, Azure, GCP, OCI, Salesforce Hyperforce</dd></div>
+<div><dt>IaC</dt><dd>Terraform, Terragrunt, Pulumi, Packer, Chef</dd></div>
+<div><dt>Containers</dt><dd>Kubernetes, Helm, Docker, Argo CD, Flux, Istio</dd></div>
+<div><dt>CI/CD</dt><dd>Harness, GitHub Actions, Jenkins, Spinnaker, TeamCity</dd></div>
+<div><dt>Secrets</dt><dd>HashiCorp Vault, HashiCorp Consul, Thycotic, cert-manager, AWS IAM</dd></div>
+<div><dt>Workflow</dt><dd>Temporal, Camunda Zeebe</dd></div>
+<div><dt>Languages</dt><dd>Go, Python, Bash, Ruby, Java</dd></div>
+</dl>
+</section>
 
 </main></div>
 <script>
